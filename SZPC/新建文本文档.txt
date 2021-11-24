@@ -1,0 +1,156 @@
+/// <summary>
+       /// 输出高程计算表
+       /// </summary>
+       /// <param name="a 点号"></param>
+       /// <param name="b 测站数/距离"></param>
+       /// <param name="c 高差"></param>
+       /// <param name="d 改正数"></param>
+       /// <param name="e1 改正后高差"></param>
+       /// <param name="f1 高程"></param>
+        private void Excel(string[] a, string[] b, string[] c, string[] d, string[] e1, string[] f1)
+        {
+            if (km == 0 | km == 1)            //判断是否进行计算，若未计算返回并弹出提示
+            {
+                MessageBox.Show("请先进行计算");
+                return;
+            }
+            else if (km == 2)
+            {
+                 
+
+                    //调用excel库  ，请添加引用 microsoft.office.interop.excel
+                    Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.ApplicationClass();
+                    Workbook book = excel.Workbooks.Add(Missing.Value);                           // 添加一个工作簿
+                    Worksheet sheet = (Microsoft.Office.Interop.Excel.Worksheet)excel.ActiveSheet;// 获取当前工作表
+                    sheet.Name = "sheetName1";                                                   // 修改工作表的名字
+                    Range range = null;                                                          // 创建一个空的单元格对象
+
+                //输入数据并设置单元格格式
+                    sheet.Cells[2, 1] = "点号";
+                    if (rb3.Checked == true)
+                    {
+                        sheet.Cells[2, 2] = "测站数";
+                    }
+                    else if (rb4.Checked == true)
+                    {
+                        sheet.Cells[2, 2] = "距离L/KM";
+                    }
+                    sheet.Cells[2, 3] = "高差/m";
+                    sheet.Cells[2, 4] = "改正数/m";
+                    sheet.Cells[2, 5] = "改正后高差/m";
+                    sheet.Cells[2, 6] = "各点高程/m";
+                    string k = "F" + Convert.ToString(a.Length * 2 + 3);
+                    range = (Range)sheet.get_Range("A1", k);
+                    range.NumberFormatLocal = "@";  //设置单元格格式为文本
+                    range.Borders.LineStyle = 1;
+                    range.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                    range.Columns.AutoFit();
+                    string A = "B" + (2 * (a.Length + 1) + 1);
+                    string F = "F" + (2 * (a.Length + 1) + 1);
+                    range = (Range)sheet.get_Range(A, F);
+                    range.Merge(0);     //单元格合并动作
+                    range.RowHeight = 45;
+                    range.ColumnWidth = 10;
+                    string G = "E" + (2 * (a.Length + 1) + 1);
+                    range = (Range)sheet.get_Range("E1", G);
+                    range.ColumnWidth = 15;
+                    range = (Range)sheet.get_Range("A1", "F1");
+                    range.Merge(0);     //单元格合并动作
+                    range.Font.Name = "黑体";
+                    range.RowHeight = 25;
+                    range.Font.Size = 12;
+
+                    for (i = 0; i < a.Length - 1; i++)
+                    {
+                        int k1 = 2 * (i + 2);
+                        string n = "A" + Convert.ToString(k1);
+                        string n1 = "A" + Convert.ToString(k1 + 1);
+                        string m = "F" + Convert.ToString(k1);
+                        string m1 = "F" + Convert.ToString(k1 + 1);
+                        range = (Range)sheet.get_Range(n, n1);     //获取Excel多个单元格区域：本例做为Excel表头
+                        range.Merge(0);     //单元格合并动作
+                        range = (Range)sheet.get_Range(m, m1);
+                        range.Merge(0);     //单元格合并动作
+
+                    }
+                    for (i = 0; i < b.Length + 1; i++)
+                    {
+                        int k1 = 2 * (i + 2);
+                        string n = "B" + Convert.ToString(k1 - 1);
+                        string n1 = "B" + Convert.ToString(k1);
+                        range = (Range)sheet.get_Range(n, n1);
+                        range.Merge(0);     //单元格合并动作
+                        string m = "C" + Convert.ToString(k1 - 1);
+                        string m1 = "C" + Convert.ToString(k1);
+                        range = (Range)sheet.get_Range(m, m1);
+                        range.Merge(0);     //单元格合并动作
+                        string j = "D" + Convert.ToString(k1 - 1);
+                        string j1 = "D" + Convert.ToString(k1);
+                        range = (Range)sheet.get_Range(j, j1);
+                        range.Merge(0);     //单元格合并动作
+                        string l = "E" + Convert.ToString(k1 - 1);
+                        string l1 = "E" + Convert.ToString(k1);
+                        range = (Range)sheet.get_Range(l, l1);
+                        range.Merge(0);     //单元格合并动作
+
+                    }
+                    sheet.Cells[1, 1] = "水准平差计算表";     //Excel单元格赋值
+
+                    for (i = 0; i < a.Length; i++)
+                    {
+                        if (i == 0)
+                        {
+                            sheet.Cells[i + 3, 1] = a[i];   // 不管是Sheets[i]还是Cells[i,j]都是从1开始的，而不是从0开始的！！
+
+                            sheet.Cells[i + 3, 6] = Convert.ToDouble(f1[i]).ToString("f3");
+                        }
+                        else
+                        {
+                            sheet.Cells[(i + 1) * 2, 1] = a[i];                   
+                            sheet.Cells[(i + 1) * 2, 6] = Convert.ToDouble(f1[i]).ToString("f3");
+                        }
+
+                    }
+                   
+                    sheet.Cells[2 * (a.Length + 1), 1] = "Σ";
+                    if (rb3.Checked == true)
+                    {
+                        sheet.Cells[2 * (a.Length + 1) - 1, 2] = Math.Round(sum0).ToString();
+                    }
+                    else if (rb4.Checked == true)
+                    {
+                        sheet.Cells[2 * (a.Length + 1) - 1, 2] = Math.Round(sum0, 1).ToString("f1");
+                    }
+                    sheet.Cells[2 * (a.Length + 1) - 1, 3] = Math.Round(sum1, 3).ToString("f3");
+                    sheet.Cells[2 * (a.Length + 1) - 1, 4] = Math.Round(-fl, 3).ToString("f3");
+                    sheet.Cells[2 * (a.Length + 1) - 1, 5] = Math.Round(sum2, 3).ToString("f3");
+                    sheet.Cells[2 * (a.Length + 1) + 1, 1] = "计算" + "\r\n" + "检核";
+                    sheet.Cells[2 * (a.Length + 1) + 1, 2] = "fh=H起+Σhi-H终=" + Math.Round(fl, 3) + "m" + "\r\n" + "f限=±" + Convert.ToString(gs) + "*" + Convert.ToString(sum0) + "^(1/2)" + "=±" + Math.Round(f, 0) + "mm" + "\r\n" ;
+                    for (i = 0; i < b.Length; i++)
+                    {
+
+                        if (rb3.Checked == true)
+                        {
+                            sheet.Cells[2 * (i + 1) + 1, 2] = Convert.ToDouble(b[i]).ToString();
+                        }
+                        else if (rb4.Checked == true)
+                        {
+                            sheet.Cells[2 * (i + 1) + 1, 2] = Convert.ToDouble(b[i]).ToString("f1");
+                        }
+
+                        sheet.Cells[2 * (i + 1) + 1, 3] = Convert.ToDouble(c[i]).ToString("f3");
+                        sheet.Cells[2 * (i + 1) + 1, 4] = Convert.ToDouble(d[i]).ToString("f3");
+                        sheet.Cells[2 * (i + 1) + 1, 5] = Convert.ToDouble(e1[i]).ToString("f3");
+
+                    }
+                    SaveFileDialog saveFile2 = new SaveFileDialog();  //打开保存界面并输入文件名
+                    saveFile2.Filter = "Excel工作簿(.xlsx)|*.xlsx";  //保存格式 
+                    saveFile2.FilterIndex =2;
+                    if (saveFile2.ShowDialog() == System.Windows.Forms.DialogResult.OK && saveFile2.FileName.Length > 0)//判断是否输入文件名
+                    {
+                        string P_str_path = saveFile2.FileName;      //读取文件名
+                        excel.Visible = true;                        //显示Excel表格
+                        excel.ActiveWorkbook.SaveAs(P_str_path);     //保存工作表
+                    }
+                }
+            }

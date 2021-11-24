@@ -1,0 +1,15 @@
+C:\Users\jlx\Desktop\国赛练习\附和水准路线\附和水准路线\bin\Debug\附和水准路线.exe.config
+C:\Users\jlx\Desktop\国赛练习\附和水准路线\附和水准路线\bin\Debug\附和水准路线.exe
+C:\Users\jlx\Desktop\国赛练习\附和水准路线\附和水准路线\bin\Debug\附和水准路线.pdb
+C:\Users\jlx\Desktop\国赛练习\附和水准路线\附和水准路线\obj\Debug\附和水准路线.csprojResolveAssemblyReference.cache
+C:\Users\jlx\Desktop\国赛练习\附和水准路线\附和水准路线\obj\Debug\附和水准路线.Form1.resources
+C:\Users\jlx\Desktop\国赛练习\附和水准路线\附和水准路线\obj\Debug\附和水准路线.Properties.Resources.resources
+C:\Users\jlx\Desktop\国赛练习\附和水准路线\附和水准路线\obj\Debug\附和水准路线.csproj.GenerateResource.Cache
+C:\Users\jlx\Desktop\国赛练习\附和水准路线\附和水准路线\obj\Debug\附和水准路线.exe
+C:\Users\jlx\Desktop\国赛练习\附和水准路线\附和水准路线\obj\Debug\附和水准路线.pdb
+D:\程序设计\国赛练习\附和水准路线\附和水准路线\bin\Debug\附和水准路线.exe.config
+D:\程序设计\国赛练习\附和水准路线\附和水准路线\obj\Debug\附和水准路线.exe
+D:\程序设计\国赛练习\附和水准路线\附和水准路线\obj\Debug\附和水准路线.pdb
+D:\Development\国赛\附和水准路线\附和水准路线\bin\Debug\附和水准路线.exe.config
+D:\Development\国赛\附和水准路线\附和水准路线\obj\Debug\附和水准路线.exe
+D:\Development\国赛\附和水准路线\附和水准路线\obj\Debug\附和水准路线.pdb
